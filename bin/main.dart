@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 
 // CONSTANTS
 const String queryURL = "https://chocolatey.org/search?q=";
-const double version = 0.7;
+const String version = "1.0.0";
 const String helpMessage = 
 """
 Possible uses:
@@ -80,30 +80,36 @@ bool validOption(String option) {
   return false;
 }
 
-void simpleQuery(String query) {
-   http.get(queryURL + query).then((response) {
-
+void baseQuery(String query, int amount) {
+  http.get(queryURL + query).then((response) {
     var res = packageRegex.allMatches(response.body);
-    res.take(5).forEach((m) {
+    res.take(amount).forEach((m) {
       var title = getTitle(m);
       var packageVersion = getVersion(m);
       var downloads = getDownloads(m);
       var installPhrase = getInstallPhrase(m);
-
       print("Package: $title | Version: $packageVersion | Downloads: $downloads\nInstall: '$installPhrase'\n");
     });
-
   });
 }
 
+void simpleQuery(String query) {
+   baseQuery(query, 5);
+}
+
 void optionQuery(String query, String option) {
-  switch(option) {
-    case "--desc":
-      descQuery(query);
-      break;
-    case "--open":
-      runBrowser("https://www.chocolatey.org/packages/$query");
-      break;
+  try {
+    var count = int.parse(option);
+    baseQuery(query, count);
+  } on FormatException catch(_) {
+    switch(option) {
+      case "--desc":
+        descQuery(query);
+        break;
+      case "--open":
+        runBrowser("https://www.chocolatey.org/packages/$query");
+        break;
+    }
   }
 }
 

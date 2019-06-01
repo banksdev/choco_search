@@ -25,6 +25,17 @@ Install: 'choco install vscode-csharp'
 >Package: vscode-icons | Version: 1.0.0.20190314 | Downloads: 36,037 downloads  
 Install: 'choco install vscode-icons'
 
+`$ choco_search vscode 3`
+>Package: vscode | Version: 1.34.0 | Downloads: 421,118 downloads  
+Install: 'choco install vscode'
+
+>Package: VisualStudioCode | Version: 1.23.1.20180730 | Downloads: 651,645 downloads  
+Install: 'choco install visualstudiocode'
+
+>Package: vscode-powershell | Version: 1.0.0.20181011 | Downloads: 46,694 downloads  
+Install: 'choco install vscode-powershell'
+
+
 `$ choco_search git --desc`
 
 >Package: git  
@@ -37,3 +48,11 @@ Git for Windows focuses on offering a lightweight, native set of tools that brin
 `choco_search jdk8 --open`
 
 *Will open the a browser window with the given package*
+
+`choco_search --help`
+
+*Provides a help message*
+
+`choco_search --version`
+
+*Provides the current version of the application*
