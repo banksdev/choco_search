@@ -4,7 +4,7 @@ A simple command-line tool for searching through Chocolatey packages through the
 ## Installation
 1) Install the Dart SDK
 2) Clone repository
-3) Add alias, e.g. "alias choco_search="dart ~/choco_search/bin/main.dart"
+3) `$ pub global --source path <path to repo> (e.g. ~/choco_search)`
 
 ## Uses
 `$ choco_search vscode`
