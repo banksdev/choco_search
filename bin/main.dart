@@ -31,6 +31,17 @@ main(List<String> arguments) {
     return;
   }
 
+  var query = arguments[0];
+  if (query == "--help") {
+    print(helpMessage);
+    return;
+  }
+
+  if (query == "--version") {
+    print("Version: $version");
+    return;
+  }
+
   if (arguments.length > 2) {
     print("Too many arguments...");
     return;
@@ -47,11 +58,12 @@ main(List<String> arguments) {
     }
   }
 
-  if (option == null)
-    simpleQuery(arguments[0]);
-  else
-    optionQuery(arguments[0], option);
-
+  if (option == null) {
+    simpleQuery(query);
+  }
+  else {
+    optionQuery(query, option);
+  }
 }
     
 bool validOption(String option) {
@@ -59,9 +71,7 @@ bool validOption(String option) {
   // A number is a valid argument
   try {
     if (int.parse(option) != null) return true;
-  } on FormatException catch(e) {
-    
-  }
+  } on FormatException catch(_) { }
 
   switch (option) {
     case "--desc": return true;
@@ -87,7 +97,34 @@ void simpleQuery(String query) {
   });
 }
 
-void optionQuery(String argument, String option) {
+void optionQuery(String query, String option) {
+  switch(option) {
+    case "--desc":
+      descQuery(query);
+      break;
+    case "--open":
+      print("");
+      break;
+  }
+}
+
+void descQuery(String query) {
+  http.get(queryURL + query).then((response) {
+
+    var res = packageRegex.allMatches(response.body);
+    var m = res.first;
+    
+    print(
+"""
+Package: ${getTitle(m)}
+Version: ${getVersion(m)}
+Downloads: ${getDownloads(m)}
+Install: "${getInstallPhrase(m)}"
+Description:\n${getDescription(m)}
+"""
+    );
+
+  });
 }
 
 var titleVersionRegex = RegExp(
