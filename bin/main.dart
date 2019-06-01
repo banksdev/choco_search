@@ -1,11 +1,10 @@
-import 'package:choco_search/choco_search.dart' as choco_search;
-
+// IMPORTS
 import "dart:io";
-
 import 'package:http/http.dart' as http;
 
+// CONSTANTS
 const String queryURL = "https://chocolatey.org/search?q=";
-const double version = 0.1;
+const double version = 0.7;
 const String helpMessage = 
 """
 Possible uses:
@@ -178,7 +177,7 @@ String getDownloads(Match match) {
 }
 
 var descriptionRegex = RegExp(
-  r'<p>([\s\S]+?)<\/p>',
+  r'<p>([\s\S]+?)##',
   caseSensitive: false,
   multiLine: true,
 );
