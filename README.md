@@ -2,13 +2,12 @@
 A simple command-line tool for searching through Chocolatey packages through the terminal. The goal is to provide a better experience than that of Chocolatey's `choco search` command.
 
 ## Installation
-1) Install the Dart SDK
-2) Clone repository
+1) Install the Dart SDK (https://dart.dev/tools/sdk or `$ choco install dart-sdk`)
+2) Clone this repository
 3) `$ pub global --source path <path to repo> (e.g. ~/choco_search)`
 
 ## Uses
 `$ choco_search vscode`
-
 
 >Package: vscode | Version: 1.34.0 | Downloads: 421,118 downloads  
 Install: 'choco install vscode'
