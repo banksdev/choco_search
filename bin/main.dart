@@ -1,7 +1,7 @@
 import 'package:choco_search/choco_search.dart' as choco_search;
 
-import 'package:html/parser.dart' show parse;
-import 'package:html/dom.dart';
+import "dart:io";
+
 import 'package:http/http.dart' as http;
 
 const String queryURL = "https://chocolatey.org/search?q=";
@@ -103,8 +103,30 @@ void optionQuery(String query, String option) {
       descQuery(query);
       break;
     case "--open":
-      print("");
+      runBrowser("https://www.chocolatey.org/packages/$query");
       break;
+  }
+}
+
+void runBrowser(String url) {
+  var fail = false;
+  switch (Platform.operatingSystem) {
+    case "linux":
+      Process.run("x-www-browser", [url]);
+      break;
+    case "macos":
+      Process.run("open", [url]);
+      break;
+    case "windows":
+      Process.run("explorer", [url]);
+      break;
+    default:
+      fail = true;
+      break;
+  }
+
+  if (!fail) {
+    print("Start browsing...");
   }
 }
 
